@@ -1,12 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, View ,Text } from 'react-native';
+import ReporterApp from './components/reporter';
+import Login from './components/Login';
+import Registration from './components/Registration';
+import names from './utils';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { UserProvider } from './components/UserContext';
+import Home from './components/Home';
+import Away from './components/Away';
+// import Map from './components/Map';
 
-export default function App() {
+const Stack = createStackNavigator();
+
+function App () {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <UserProvider>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName={names.REGISTRATION} screenOptions={{headerShown: false}}>
+        <Stack.Screen name={names.REGISTRATION} component={Registration} />
+        <Stack.Screen name={names.LOGIN} component={Login} />
+        <Stack.Screen name={names.HOME} component={Home} />
+        <Stack.Screen name={names.AWAY} component={Away} />
+      </Stack.Navigator>
+    </NavigationContainer>
+    </UserProvider>
   );
 }
 
@@ -18,3 +36,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default App;
+
